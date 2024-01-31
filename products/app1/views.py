@@ -38,3 +38,18 @@ def detailview(request,pk):
     products = Product.objects.get(id=pk)
     serializer = ProductSerializer(Product,many=False)
     return Response(serializer.data)
+
+@api_view(['Post'])
+def UpdateView(request,pk):
+    product = Product.objects.get(id=pk)
+    serializer = ProductSerializer(instance=products,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['Delete'])
+def DeleteView(request,pk):
+    product = Product.objects.get(id=pk)
+    product.delete()
+    return Response('Items Deleted Successfully')
+
