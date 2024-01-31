@@ -32,3 +32,9 @@ def createproduct(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+@api_view(['Get'])
+def detailview(request,pk):
+    products = Product.objects.get(id=pk)
+    serializer = ProductSerializer(Product,many=False)
+    return Response(serializer.data)
